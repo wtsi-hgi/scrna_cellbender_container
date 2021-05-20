@@ -15,6 +15,9 @@ dependencies:
   - kneed=0.7.0
   - louvain=0.6.1
   - leidenalg=0.8.2
+  - click
+  - plotnine
+  - matplotlib
   - pip
   - pip:
      - git+https://github.com/broadinstitute/CellBender.git
