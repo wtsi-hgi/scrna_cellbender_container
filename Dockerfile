@@ -46,7 +46,8 @@ RUN echo $PATH
 #    && pip install vireoSNP \
 #    && conda env list"
 
-# clean-up tmp # USER root
+# clean-up  # USER root
+RUN conda clean -atipy
 RUN rm -rf ${HOME}/tmp
 RUN rm -rf /tmp/*
 
