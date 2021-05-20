@@ -5,8 +5,10 @@
 
 ##### current software versions:  
 the versions are saved during docker build in container file `/usr/conda_software_versions.txt`:  
-(`docker run wtsihgi/nf_cellbender_container:v1.1 cat /usr/conda_software_versions.txt`)
-
+```
+docker run wtsihgi/nf_cellbender_container:v1.1 cat /usr/conda_software_versions.txt
+singularity exec --containall docker://wtsihgi/nf_cellbender:v1.1 cat /usr/conda_software_versions.txt
+```
 github/dockerhub tag **v1.1** has:
 ```
 cellbender built from git commit 78f005fc8dc9313328d4ef7a6f4ed985fa253187 Add support for AnnData inputs (#90)
