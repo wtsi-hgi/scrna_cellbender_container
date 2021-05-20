@@ -16,3 +16,6 @@ rm -f nf_cellbender_${tag}.img || true
 
 singularity pull docker://wtsihgi/nf_cellbender:${tag}
 mv nf_cellbender_${tag}.sif nf_cellbender_${tag}.img
+
+singularity exec --containall nf_cellbender_${tag}.img cat /usr/conda_software_versions.txt
+singularity exec --containall nf_cellbender_${tag}.img cellbender --help 
