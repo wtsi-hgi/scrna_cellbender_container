@@ -41,20 +41,23 @@ ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
 
 # Add additional software using Conda env:
-#RUN /bin/bash -c "source activate $conda_env \
-#    && pip install cellSNP \
-#    && pip install vireoSNP \
-#    && conda env list"
+RUN /bin/bash -c "source activate $conda_env \
+    && git clone https://github.com/broadinstitute/CellBender.git \
+    && pip install -e CellBender \
+    && conda env list"
 
 # clean-up  # USER root
 RUN conda clean -atipy
 RUN rm -rf /tmp/*
 
+# test main software:
+RUN cellbender --help
 # test main python libraries can be loaded:
 RUN python -c 'import sys;print(sys.version_info);import click; import pandas; import plotnine; import matplotlib'
 
 ## check software versions:
-RUN cellbender -v  >> /usr/conda_software_versions.txt 2>&1 || true
+RUN cd CellBender && git log --pretty=oneline | head >> /usr/conda_software_versions.txt 2>&1
+RUN cd CellBender && git describe --tags >> /usr/conda_software_versions.txt 2>&1
 RUN cat /usr/conda_software_versions.txt
 
 CMD /bin/sh
