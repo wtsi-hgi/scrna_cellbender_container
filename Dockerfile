@@ -51,12 +51,10 @@ RUN conda clean -atipy
 RUN rm -rf /tmp/*
 
 # test main python libraries can be loaded:
-RUN python -c 'import sys;print(sys.version_info);import cellSNP; import vireoSNP; import scanpy; import click; import pandas; import plotnine; import matplotlib'
+RUN python -c 'import sys;print(sys.version_info);import click; import pandas; import plotnine; import matplotlib'
 
 ## check software versions:
-RUN cellSNP  >> /usr/conda_software_versions.txt 2>&1 || true
-RUN cellsnp-lite -V >> /usr/conda_software_versions.txt 2>&1 || true
-RUN vireo  >> /usr/conda_software_versions.txt 2>&1 || true
+RUN cellbender -v  >> /usr/conda_software_versions.txt 2>&1 || true
 RUN cat /usr/conda_software_versions.txt
 
 CMD /bin/sh
