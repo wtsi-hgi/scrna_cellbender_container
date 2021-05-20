@@ -9,16 +9,27 @@ LABEL authors="Guillaume Noell" \
 # nuke cache dirs before installing pkgs; tip from Dirk E fixes broken img
 RUN rm -f /var/lib/dpkg/available && rm -rf  /var/cache/apt/*
 RUN apt-get update && \
-  apt-get -y upgrade && \
-  apt-get install -y --no-install-recommends \
-  build-essential \
-  curl \
-  git \
-  libbz2-dev \
-  python-pip \
-  zlib1g-dev \
-  procps \ 
-  && rm -rf /var/lib/apt/lists/*
+    apt-get install --yes --no-install-recommends \
+        wget \
+        bzip2 \
+        ca-certificates \
+        curl \
+        git \
+        zip \
+        unzip \
+        procps && \
+    apt-get install --yes \
+        libpng-dev \
+        libcurl4-gnutls-dev \
+        libssl-dev \
+        libxml2-dev \
+        libgit2-dev \
+        zlib1g-dev \
+        build-essential && \
+  	procps && \ 
+     apt-get purge && \
+     apt-get clean && \
+     rm -rf /var/lib/apt/lists/*
 
 # install Conda env:
 ADD environment.yml /tmp/environment.yml
@@ -30,11 +41,15 @@ ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
 
 # Add additional software using Conda env:
-RUN /bin/bash -c "source activate $conda_env \
-    && pip install cellSNP \
-    && pip install vireoSNP \
-    && conda env list"
-    
+#RUN /bin/bash -c "source activate $conda_env \
+#    && pip install cellSNP \
+#    && pip install vireoSNP \
+#    && conda env list"
+
+# clean-up tmp # USER root
+RUN rm -rf ${HOME}/tmp
+RUN rm -rf /tmp/*
+
 # test main python libraries can be loaded:
 RUN python -c 'import sys;print(sys.version_info);import cellSNP; import vireoSNP; import scanpy; import click; import pandas; import plotnine; import matplotlib'
 
@@ -42,11 +57,6 @@ RUN python -c 'import sys;print(sys.version_info);import cellSNP; import vireoSN
 RUN cellSNP  >> /usr/conda_software_versions.txt 2>&1 || true
 RUN cellsnp-lite -V >> /usr/conda_software_versions.txt 2>&1 || true
 RUN vireo  >> /usr/conda_software_versions.txt 2>&1 || true
-RUN which python >> /usr/conda_software_versions.txt
-RUN python --version >> /usr/conda_software_versions.txt
-RUN tabix --version  >> /usr/conda_software_versions.txt
-RUN bcftools --version  >> /usr/conda_software_versions.txt
-RUN samtools --version  >> /usr/conda_software_versions.txt
 RUN cat /usr/conda_software_versions.txt
 
 CMD /bin/sh
