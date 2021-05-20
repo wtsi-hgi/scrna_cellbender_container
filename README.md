@@ -2,7 +2,7 @@
 
 - Dockerhub auto-build:  
     see https://hub.docker.com/repository/docker/mercury/scrna_deconvolution
-
+a
 ##### current software versions:  
 the versions are saved during docker build in container file `/usr/conda_software_versions.txt`:  
 (`docker run mercury/scrna_deconvolution_container:1.0 cat /usr/conda_software_versions.txt`)
