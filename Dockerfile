@@ -25,7 +25,7 @@ RUN apt-get update && \
         libxml2-dev \
         libgit2-dev \
         zlib1g-dev \
-        build-essential && \
+        build-essential \
   	procps && \ 
      apt-get purge && \
      apt-get clean && \
