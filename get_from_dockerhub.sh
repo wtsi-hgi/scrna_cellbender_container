@@ -11,8 +11,8 @@ export SINGULARITY_CACHEDIR=$PWD/cache_dir
 mkdir -p tmp_dir
 export TMPDIR=$PWD/tmp_dir
 
-rm -f nf_cellbender${tag}.sif || true
-rm -f nf_cellbender${tag}.img || true
+rm -f nf_cellbender_${tag}.sif || true
+rm -f nf_cellbender_${tag}.img || true
 
 singularity pull docker://wtsihgi/nf_cellbender:${tag}
-mv nf_cellbender${tag}.sif nf_cellbender${tag}.img
+mv nf_cellbender_${tag}.sif nf_cellbender_${tag}.img
