@@ -48,7 +48,6 @@ RUN echo $PATH
 
 # clean-up  # USER root
 RUN conda clean -atipy
-RUN rm -rf ${HOME}/tmp
 RUN rm -rf /tmp/*
 
 # test main python libraries can be loaded:
