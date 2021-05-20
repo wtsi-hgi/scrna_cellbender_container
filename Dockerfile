@@ -1,10 +1,10 @@
 FROM continuumio/miniconda3
 # ARG conda_env variable must match conda env name in environment.yml:
-ARG conda_env=conda_deconvolution
+ARG conda_env=conda_cellbender
 
 LABEL authors="Guillaume Noell" \
   maintainer="Guillaume Noell <gn5@sanger.ak>" \
-  description="Docker image for WSTI-HGI scRNA cellSNP-Vireo deconvolution pipeline"
+  description="Docker image for WSTI-HGI scRNA cellbender pipeline"
 
 # nuke cache dirs before installing pkgs; tip from Dirk E fixes broken img
 RUN rm -f /var/lib/dpkg/available && rm -rf  /var/cache/apt/*
