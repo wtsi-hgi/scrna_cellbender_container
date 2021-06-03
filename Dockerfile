@@ -58,6 +58,7 @@ RUN python -c 'import sys;print(sys.version_info);import click; import pandas; i
 ## check software versions:
 RUN cd CellBender && git log --pretty=oneline | head >> /usr/conda_software_versions.txt 2>&1
 RUN cd CellBender && git describe --tags >> /usr/conda_software_versions.txt 2>&1
+RUN /bin/bash -c "source activate $conda_env && conda list --explicit" >> /usr/conda_software_versions.txt 2>&1
 RUN cat /usr/conda_software_versions.txt
 
 CMD /bin/sh
