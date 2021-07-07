@@ -23,4 +23,3 @@ dependencies:
   - pip
   - pip:
      - git+https://github.com/theislab/scanpy.git@1.7.0rc1
-     - git+https://github.com/broadinstitute/CellBender.git
