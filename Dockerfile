@@ -38,11 +38,18 @@ RUN conda install mamba -n base -c conda-forge
 ADD environment.yml /tmp/environment.yml
 RUN mamba env create --prefix /opt/conda/envs/conda_cellbender -f /tmp/environment.yml
 
+# Add additional software using Conda env:
+RUN /bin/bash -c "source activate $conda_env \
+    && git clone https://github.com/broadinstitute/CellBender.git \
+    && pip install -e CellBender \
+    && conda env list"
+
 # Set installed Conda env as default:
 ENV CONDA_DEFAULT_ENV $conda_env
 ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
 RUN ls -ltra /opt/conda/envs/$conda_env/bin
+
 
 # test main software:
 RUN /opt/conda/envs/$conda_env/bin/cellbender --help
