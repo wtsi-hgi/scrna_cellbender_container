@@ -1,6 +1,5 @@
 name: conda_cellbender
 channels:
-  - letaylor
   - pytorch
   - conda-forge
   - bioconda
@@ -8,6 +7,8 @@ channels:
 dependencies:
   - numba<0.53.0
   - scikit-learn>=0.24
+  - pytables
+  - torchvision
   - pandas
   - numpy
   - scipy
@@ -21,5 +22,5 @@ dependencies:
   - matplotlib
   - pip
   - pip:
-     - git+https://github.com/broadinstitute/CellBender.git
      - git+https://github.com/theislab/scanpy.git@1.7.0rc1
+     - git+https://github.com/broadinstitute/CellBender.git
