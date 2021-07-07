@@ -9,7 +9,6 @@ dependencies:
   - pandas
   - numpy
   - scipy
-  - scanpy
   - python-igraph
   - plotnine
   - kneed
@@ -21,3 +20,4 @@ dependencies:
   - pip
   - pip:
      - git+https://github.com/broadinstitute/CellBender.git
+     - git+https://github.com/theislab/scanpy.git@1.7.0rc1
