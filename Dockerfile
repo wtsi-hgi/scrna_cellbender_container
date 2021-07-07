@@ -40,12 +40,6 @@ ENV CONDA_DEFAULT_ENV $conda_env
 ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
 
-# Add additional software using Conda env:
-RUN /bin/bash -c "source activate $conda_env \
-    && git clone https://github.com/broadinstitute/CellBender.git \
-    && pip install -e CellBender \
-    && conda env list"
-
 # clean-up  # USER root
 RUN conda clean -atipy
 RUN rm -rf /tmp/*
