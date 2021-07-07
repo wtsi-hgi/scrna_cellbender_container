@@ -33,6 +33,7 @@ RUN apt-get update && \
 
 # update conda:
 RUN conda update -n base -c defaults conda
+# use mamba solver to install packages
 RUN conda install mamba -n base -c conda-forge
 ADD environment.yml /tmp/environment.yml
 RUN mamba env create --prefix /opt/conda/envs/conda_cellbender -f /tmp/environment.yml
