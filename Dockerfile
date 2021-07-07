@@ -31,23 +31,27 @@ RUN apt-get update && \
      apt-get clean && \
      rm -rf /var/lib/apt/lists/*
 
-# install Conda env:
+# update conda:
+RUN conda update -n base -c defaults conda
+RUN conda install mamba -n base -c conda-forge
 ADD environment.yml /tmp/environment.yml
-RUN conda env create -f /tmp/environment.yml
+RUN mamba env create --prefix /opt/conda/envs/conda_cellbender -f /tmp/environment.yml
 
-# Set installed Conda env as default:
+# Set installed Conda env as default:
 ENV CONDA_DEFAULT_ENV $conda_env
 ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
+RUN ls -ltra /opt/conda/envs/$conda_env/bin
+
+# test main software:
+RUN /opt/conda/envs/$conda_env/bin/cellbender --help
+RUN cellbender --help
+# test main python libraries can be loaded:
+RUN python -c 'import sys;print(sys.version_info);import click; import pandas; import plotnine; import matplotlib'
 
 # clean-up  # USER root
 RUN conda clean -atipy
 RUN rm -rf /tmp/*
-
-# test main software:
-RUN cellbender --help
-# test main python libraries can be loaded:
-RUN python -c 'import sys;print(sys.version_info);import click; import pandas; import plotnine; import matplotlib'
 
 ## check software versions:
 RUN cd CellBender && git log --pretty=oneline | head >> /usr/conda_software_versions.txt 2>&1
