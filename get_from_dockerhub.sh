@@ -3,7 +3,7 @@
 
 # choose dockerhub image tag
 # cf. https://github.com/wtsi-hgi/nf_cellbender_container
-tag=v1.1
+tag=v1.3
 
 mkdir -p cache_dir
 export SINGULARITY_CACHEDIR=$PWD/cache_dir
