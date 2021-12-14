@@ -50,16 +50,15 @@ ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
 RUN ls -ltra /opt/conda/envs/$conda_env/bin
 
-
-# test main software:
-RUN /opt/conda/envs/$conda_env/bin/cellbender --help
-RUN cellbender --help
-# test main python libraries can be loaded:
-RUN python -c 'import sys;print(sys.version_info);import click; import pandas; import plotnine; import matplotlib'
-
 # clean-up  # USER root
 RUN conda clean -atipy
 RUN rm -rf /tmp/*
+
+# test main software:
+RUN /opt/conda/envs/$conda_env/bin/cellbender -h
+RUN cellbender -h
+# test main python libraries can be loaded:
+RUN python -c 'import sys;print(sys.version_info);import click; import pandas; import plotnine; import matplotlib'
 
 ## check software versions:
 RUN cd CellBender && git log --pretty=oneline | head >> /usr/conda_software_versions.txt 2>&1
