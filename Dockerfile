@@ -44,6 +44,12 @@ RUN /bin/bash -c "source activate $conda_env \
     && pip install -e CellBender \
     && conda env list"
 
+# fix container exec error "Intel MKL FATAL ERROR: Cannot load <mkl-loader>."
+# fix from https://stackoverflow.com/questions/36659453/intel-mkl-fatal-error-cannot-load-libmkl-avx2-so-or-libmkl-def-so
+RUN /bin/bash -c "source activate $conda_env \
+    && conda install nomkl \
+    && conda remove mkl mkl-service"
+
 # Set installed Conda env as default:
 ENV CONDA_DEFAULT_ENV $conda_env
 ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
